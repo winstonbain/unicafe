@@ -7,6 +7,37 @@ const Button = ({ onClick, text }) => (
   </button>
 )
 
+const Statistics = (props) => {
+    
+  if (props.all===0){
+    return('No Feedback Given')
+  }
+
+  return(
+    <div>
+    <table>
+      <tbody>
+      <Statistic text ="good" value ={props.good}/>
+      <Statistic text ="neutral" value ={props.neutral}/>
+      <Statistic text ="bad" value ={props.bad}/>
+      <Statistic text ="all" value ={props.all}/>
+      <Statistic text ="average" value ={(props.total/props.all)}/>
+      <Statistic text ="positive" value ={(props.good/props.all)}/>
+      </tbody>
+    </table>
+    </div>
+  )
+
+}
+
+const Statistic = (props) => {
+  return(
+    <tr>
+      <td>{props.text}</td>
+      <td>{props.value}</td>
+    </tr>
+  )
+}
 const App = () => {
   // save clicks of each button to its own state
   const [good, setGood] = useState(0)
@@ -30,24 +61,7 @@ const App = () => {
     calcAll(all+1)
   }
 
-  const Statistics = (props) => {
-    
-    if (props.all===0){
-      return('No Feedback Given')
-    }
 
-    return(
-      <div>
-      <p>good {props.good}</p>
-      <p>neutral {props.neutral}</p>
-      <p>bad {props.bad}</p>
-      <p>All {props.all}</p>
-      <p>Average {(props.total/props.all)}</p>
-      <p>Positive {props.good/props.all} %</p>
-      </div>
-    )
-
-  }
 
   return (
     <div>
@@ -58,6 +72,8 @@ const App = () => {
 
       <h1>statistics</h1>
       <Statistics total={total} all={all} good={good} neutral={neutral} bad={bad}/>
+
+
     </div>
   )
 }
